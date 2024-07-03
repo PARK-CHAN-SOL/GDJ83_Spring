@@ -143,3 +143,4 @@ database.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,maven
 src/main/java/com/sol/app/util/DBConnection.java
+database.properties

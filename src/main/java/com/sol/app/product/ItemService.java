@@ -15,11 +15,19 @@ public class ItemService {
 		return itemDAO.getList();
 	}
 	
-	public ItemDTO getDetail(Long id) throws Exception {
-		return itemDAO.getDetail(id);
+	public ItemDTO getDetail(ItemDTO dto) throws Exception {
+		return itemDAO.getDetail(dto);
 	}
 	
 	public void add(ItemDTO dto) throws Exception {
 		itemDAO.add(dto);
+	}
+	
+	public void update(ItemDTO dto) throws Exception {
+		itemDAO.update(dto);
+	}
+
+	public void delete(ItemDTO dto) throws Exception {
+		itemDAO.delete(dto);
 	}
 }

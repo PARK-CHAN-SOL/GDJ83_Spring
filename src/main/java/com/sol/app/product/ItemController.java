@@ -21,8 +21,8 @@ public class ItemController {
 	}
 	
 	@RequestMapping("detail")
-	public void getDetail(Model model, Long id) throws Exception {
-		ItemDTO dto = itemService.getDetail(id);
+	public void getDetail(Model model, ItemDTO dto) throws Exception {
+		dto = itemService.getDetail(dto);
 		model.addAttribute("dto", dto);
 	}
 	
@@ -34,4 +34,24 @@ public class ItemController {
 		itemService.add(dto);
 		return "redirect:./list";
 	}
+	
+	@RequestMapping(value="update", method=RequestMethod.GET)
+	public void update(Model model ,ItemDTO dto) throws Exception {
+		dto = itemService.getDetail(dto);
+		model.addAttribute("dto", dto);
+	}
+	
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public String update(ItemDTO dto) throws Exception {
+		itemService.update(dto);
+		return "redirect:./list";
+	}
+	
+	@RequestMapping(value="delete", method=RequestMethod.GET)
+	public String delete(ItemDTO dto) throws Exception {
+		itemService.delete(dto);
+		return "redirect:./list";
+	}
+	
+	
 }

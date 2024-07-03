@@ -29,7 +29,7 @@
           <c:forEach items="${requestScope.list}" var="dto">
             <tr>
               <td>${dto.item_id}</td>
-              <td><a href="./detail?id=${dto.item_id}">${dto.item_name}</a></td>
+              <td><a href="./detail?item_id=${dto.item_id}">${dto.item_name}</a></td>
               <td>${dto.item_rate}</td>
             </tr>
           </c:forEach>
