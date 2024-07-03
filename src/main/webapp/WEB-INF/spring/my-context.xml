@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 클래스명 변수명 = new 생성자() -->
+	<!-- FQDN -->
+	<bean class="com.sol.app.robot.LeftArm" id="leftArm"></bean>
+
+	<bean class="com.sol.app.robot.RightArm" id="rightArm"></bean>
+
+	<bean class="com.sol.app.robot.Wheel" id="wheel">
+		<!-- 생성자 호출하면서 매개변수 집어 넣는 방법 -->
+		<!-- 매개변수 index로 구분 -->
+		<!-- <constructor-arg index="0" value="55"></constructor-arg> <constructor-arg 
+			index="1" value="KUMHO"></constructor-arg> <constructor-arg index="2" value="2"></constructor-arg> -->
+
+		<!-- 매개변수 type으로 구분 -->
+		<!-- <constructor-arg type="int" value=""></constructor-arg> -->
+
+		<!-- 매개변수 이름으로 구분 -->
+		<constructor-arg name="size" value="50"></constructor-arg>
+		<constructor-arg name="brand" value="KUMHO"></constructor-arg>
+		<constructor-arg name="count" value="2"></constructor-arg>
+
+	</bean>
+
+	<bean class="com.sol.app.robot.Robot" id="robot">
+		<!-- name=setter의 이름 -->
+		<!-- value = primitive type의 값 또는? String 값 -->
+		<property name="company" value="DOOSAN"></property>
+		<property name="age" value="20"></property>
+		<property name="leftArm" ref="leftArm"></property>
+		<property name="rightArm" ref="rightArm"></property>
+		<property name="wheel" ref="wheel"></property>
+	</bean>
+
+</beans>
