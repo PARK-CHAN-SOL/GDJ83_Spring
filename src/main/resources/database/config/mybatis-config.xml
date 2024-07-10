@@ -9,5 +9,6 @@
  		<typeAlias type="com.sol.app.members.MemberDTO" alias="MemberDTO"/>
  		<typeAlias type="com.sol.app.accounts.AccountDTO" alias="AccountDTO"/>
  		<typeAlias type="com.sol.app.bank_infos.Bank_infosDTO" alias="Bank_infosDTO"/>
+ 		<typeAlias type="com.sol.app.trades.TradeDTO" alias="TradeDTO"/>
  	</typeAliases>
  </configuration>

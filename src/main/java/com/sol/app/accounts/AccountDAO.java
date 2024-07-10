@@ -12,9 +12,6 @@ public class AccountDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
-	
-	@Autowired
-	private Bank_infosDAO bank_infosDAO;
 
 	private final String NAMESPACE = "com.sol.app.accounts.AccountDAO.";
 
@@ -27,13 +24,11 @@ public class AccountDAO {
 	}
 	
 	public int transfer(Bank_infosDTO bank_infosDTO) throws Exception {
-		int num = 0;
-		num += sqlSession.update(NAMESPACE + "transfer", bank_infosDTO);
-//		num += transferU(bank_infosDTO);
-		num += sqlSession.update(NAMESPACE + "transferU", bank_infosDTO);
-		num += bank_infosDAO.transfer(bank_infosDTO);
-		num += bank_infosDAO.transferU(bank_infosDTO);
-		return num;
+		return sqlSession.update(NAMESPACE + "transfer", bank_infosDTO);
+	}
+	
+	public int transferU(Bank_infosDTO bank_infosDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "transferU", bank_infosDTO);
 	}
 	
 	/*

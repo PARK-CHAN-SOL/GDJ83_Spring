@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper는 테이블 별로 하나씩 만들 거다. namespace는 중복되면 안된다. -->
+<mapper namespace="com.sol.app.trades.TradeDAO">
+
+	<insert id="add" parameterType="TradeDTO">
+		INSERT INTO TRADE
+		(TRADENUM, TRADEDATE, TRADEAMOUNT, TRADEBALANCE, TRADEIO, ACCOUNTNUMBER)
+		VALUES
+		(
+		TRADE_SEQ.NEXTVAL, SYSDATE, #{tradeAmount},
+		(
+		<choose>
+
+			<when test="tradeIO=='0'">
+				SELECT ACCOUNTBALANCE + #{tradeAmount}
+				FROM ACCOUNT
+				WHERE ACCOUNTNUMBER=#{accountNumber}
+				)
+				, #{tradeIO}, #{accountNumber}
+				)
+			</when>
+
+			<otherwise>
+				SELECT ACCOUNTBALANCE - #{tradeAmount}
+				FROM ACCOUNT
+				WHERE ACCOUNTNUMBER=#{receiveNumber}
+				, #{tradeIO}, #{receiveNumber}
+				)
+			</otherwise>
+
+		</choose>
+
+	</insert>
+
+	<update id="update" parameterType="TradeDTO">
+		UPDATE ACCOUNT
+
+		<if test="tradeIO==0">
+			SET ACCOUNTBALANCE=ACCOUNTBALANCE+#{tradeAmount}
+			WHERE
+			ACCOUNTNUM=#{accountNum}
+		</if>
+
+		<if test="tradeIO==1">
+			SET ACCOUNTBALANCE=ACCOUNTBALANCE-#{tradeAmount}
+			WHERE
+			ACCOUNTNUM=#{receiveNumber}
+		</if>
+
+	</update>
+	
+</mapper>

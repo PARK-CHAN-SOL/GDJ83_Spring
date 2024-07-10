@@ -22,8 +22,8 @@
           </thead>
           <tbody>
             <tr>
-              <td>${selectedAccount.bank_id}</td>
-              <td>${selectedAccount.balance}</td>
+              <td>${param.bank_id}</td>
+              <td>${param.balance}</td>
             </tr>
 
           </tbody>
@@ -33,7 +33,7 @@
         <br>
 
         <form class="row g-3" method="post" id="frm" action="./transfer">
-          <input type="hidden" value="${selectedAccount.bank_id}" name="bank_id">
+          <input type="hidden" value="${param.bank_id}" name="bank_id">
           <div class="col-md-12">
             <label for="bank_id" class="form-label">상대방계좌번호</label> <input type="text" class="form-control" name="account_u">
           </div>
@@ -68,6 +68,8 @@
 					alert("비밀번호는 4개의 숫자를 입력하세요");
 				} else if (difference.value <= 0) {
 					alert("1원 이상부터 이체할 수 있습니다")
+				} else if (difference.value > ${param.balance}){
+					alert("잔액이 부족합니다")
 				} else {
 					frm.submit();
 				}

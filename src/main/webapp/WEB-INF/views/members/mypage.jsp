@@ -45,7 +45,7 @@
 
                 <c:forEach items="${member.dtos}" var="ac">
                   <tr>
-                    <td><a href="../accounts/detail?bank_id=${ac.bank_id}">${ac.bank_id}</a></td>
+                    <td><a href="../accounts/detail?bank_id=${ac.bank_id}&balance=${ac.balance}">${ac.bank_id}</a></td>
                     <td>${ac.balance}</td>
                   </tr>
                 </c:forEach>
