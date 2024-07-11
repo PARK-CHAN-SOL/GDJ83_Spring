@@ -14,11 +14,11 @@
       <div class="col-lg-7 col-md-9">
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="./list?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="./list?page=2">2</a></li>
-            <li class="page-item"><a class="page-link" href="./list?page=3">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <li class="page-item"><a class="page-link ${map.pager.curBlock != 1 ?'':'disabled'}" href="./list?page=${map.pager.startNum-1}">Previous</a></li>
+            <c:forEach begin="${map.pager.startNum}" end="${map.pager.lastNum}" var="i">
+              <li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
+            </c:forEach>
+            <li class="page-item"><a class="page-link ${map.pager.curBlock < map.pager.totalBlock ?'':'disabled'}" href="./list?page=${map.pager.lastNum+1}">Next</a></li>
           </ul>
         </nav>
         <div class="d-md-flex justify-content-md-end">
@@ -34,7 +34,7 @@
             </tr>
           </thead>
           <tbody>
-            <c:forEach items="${requestScope.list}" var="dto">
+            <c:forEach items="${requestScope.map.list}" var="dto">
               <tr>
                 <td>${dto.item_id}</td>
                 <td><a href="./detail?item_id=${dto.item_id}">${dto.item_name}</a></td>

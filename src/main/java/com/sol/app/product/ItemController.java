@@ -1,6 +1,6 @@
 package com.sol.app.product;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,8 @@ public class ItemController {
 	
 	@RequestMapping("list")
 	public void getList(Model model, Pager pager) throws Exception {
-		List<ItemDTO> list = itemService.getList(pager);
-		model.addAttribute("list", list);
+		Map<String,Object> map = itemService.getList(pager);
+		model.addAttribute("map", map);
 	}
 	
 	@RequestMapping("detail")
