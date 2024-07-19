@@ -38,6 +38,13 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="mb-3">
+					<button type="button" id="add" class="btn btn-success">파일 추가</button>
+				</div>
+				<div id="result">
+				
+				</div>
+				
 				<button type="submit" class="btn btn-secondary">등록</button>
 			</div>
 			</form>
@@ -49,5 +56,9 @@
 <c:import url="../template/footer.jsp"></c:import>
 </footer>
 <c:import url="../template/footerJS.jsp"></c:import>
+<script type="text/javascript" src="/resources/js/commons/files.js"></script>
+<script type="text/javascript">
+	setMax(5);
+</script>
 </body>
 </html>
