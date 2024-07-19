@@ -20,7 +20,7 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
-                                <form id="frm" data-sb-form-api-token="API_TOKEN" method="post">
+                                <form id="frm" data-sb-form-api-token="API_TOKEN" method="post" enctype="multipart/form-data">
                                     <!-- Name input-->
                                     <div class="form-floating mb-3">
                                         <input class="form-control ch" name="member_id" id="member_id" type="text" placeholder="Enter your ID" data-sb-validations="required" />
@@ -68,7 +68,7 @@
                                     
                                     
                                     <div class="d-grid mt-5">
-                                    <button class="btn btn-secondary btn-lg" id="btn" type="button">Submit</button>
+                                    <button class="btn btn-secondary btn-lg" id="btn" type="submit">Submit</button>
                                     </div>
                                 </form>
                             </div>

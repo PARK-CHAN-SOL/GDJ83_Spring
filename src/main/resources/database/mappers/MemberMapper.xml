@@ -22,9 +22,11 @@
   	</select>
   	
   	<select id="detail" parameterType="MemberDTO" resultMap="detailResult">
-  		SELECT 	m.*, b.*
+  		SELECT 	m.*, b.*, f.*
   		FROM	MEMBERS m LEFT JOIN BANK b
   				ON m.MEMBER_ID = b.MEMBER_ID
+  				LEFT JOIN MEMBERFILES f
+  				ON m.MEMBER_ID = f.MEMBER_id
   		WHERE	m.MEMBER_ID = #{member_id} 	
   	</select>
   	
@@ -38,6 +40,14 @@
   		<result column="MEMBER_PHONE" property="member_phone"/>
   		<result column="MEMBER_EMAIL" property="member_email"/>
 		
+		<!-- 1 : 1 관계를 먼저 쓰고 1 : N 관계를 써야한다 -->
+		<!-- 1 : 1 -->
+		<association property="memberFileDTO" javaType="MemberFileDTO">
+			<result column="FILENUM" property="fileNum"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="ORINAME" property="oriName"/>
+		</association>
+				
 		<!-- 1 : N -->
 		<collection property="dtos" javaType="java.util.List" ofType="AccountDTO">
 			<id column="BANK_ID" property="bank_id"/>
@@ -47,7 +57,6 @@
 			<result column="BANK_PW" property="bank_pw"/>
 			<result column="BALANCE" property="balance"/>
 		</collection>
-		
   	</resultMap>
   	
   	<update id="update" parameterType="MemberDTO">
@@ -61,5 +70,10 @@
   	<delete id="delete" parameterType="MemberDTO">
   		DELETE MEMBERS WHERE MEMBER_ID = #{member_id}
   	</delete>
+  	
+  	<insert id="addFile" parameterType="MemberFileDTO">
+  		INSERT INTO MEMBERFILES
+  		VALUES (FILE_SEQ.NEXTVAL, #{member_id}, #{fileName}, #{oriName})
+  	</insert>
   	
   </mapper>

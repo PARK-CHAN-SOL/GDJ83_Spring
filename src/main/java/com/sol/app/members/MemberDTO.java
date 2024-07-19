@@ -11,6 +11,7 @@ public class MemberDTO {
 	private String member_phone;
 	private String member_email;
 	private List<AccountDTO> dtos;
+	private MemberFileDTO memberFileDTO;
 	
 	public List<AccountDTO> getDtos() {
 		return dtos;
@@ -47,6 +48,12 @@ public class MemberDTO {
 	}
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;
+	}
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
 	}
 	
 	

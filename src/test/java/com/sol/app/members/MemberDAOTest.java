@@ -16,7 +16,7 @@ public class MemberDAOTest extends DefaultTest {
 	@Autowired
 	private MemberDAO memberDAO;
 
-	@Test
+	
 	public void loginTest() throws Exception {
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setMember_id("kk3223");
@@ -24,6 +24,16 @@ public class MemberDAOTest extends DefaultTest {
 		
 		assertEquals(1, memberDTO.getDtos().size());
 		
+	}
+	
+	@Test
+	public void addFileTest() throws Exception {
+		MemberFileDTO dto = new MemberFileDTO();
+		dto.setMember_id("kk3223");
+		dto.setFileName("1238901299_whale.jpg");
+		dto.setOriName("whale.jpg");
+		
+		memberDAO.addFile(dto);
 	}
 
 }

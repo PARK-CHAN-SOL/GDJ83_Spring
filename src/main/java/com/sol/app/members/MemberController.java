@@ -2,6 +2,7 @@ package com.sol.app.members;
 
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/members/")
@@ -25,8 +27,10 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "join", method = RequestMethod.POST)
-	public String join(MemberDTO dto) throws Exception {
-		int num = memberService.join(dto);
+	public String join(MemberDTO dto, MultipartFile files, HttpSession httpSession) throws Exception {
+		
+		int num = memberService.join(dto, files, httpSession);
+		
 		return "redirect:/";
 	}
 

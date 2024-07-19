@@ -16,5 +16,7 @@
  		<typeAlias type="java.util.Map" alias="Map"/>
  		<typeAlias type="java.util.List" alias="List"/>
  		<typeAlias type="com.sol.app.util.Pager" alias="Pager"/>
+ 		<typeAlias type="com.sol.app.files.FileDTO" alias="FileDTO"/>
+ 		<typeAlias type="com.sol.app.members.MemberFileDTO" alias="MemberFileDTO"/>
  	</typeAliases>
  </configuration>
