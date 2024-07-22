@@ -2,6 +2,10 @@ package com.sol.app.boards;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.sol.app.util.Pager;
 
 public interface BoardService {
@@ -13,7 +17,7 @@ public interface BoardService {
 
 	public int update(BoardDTO boardDTO) throws Exception;
 
-	public int add(BoardDTO boardDTO) throws Exception;
+	public int add(MultipartFile[] files, BoardDTO boardDTO, HttpSession httpSession) throws Exception;
 
 	public int delete(BoardDTO boardDTO) throws Exception;
 }

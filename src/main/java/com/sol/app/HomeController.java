@@ -25,7 +25,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
 
-		System.out.println("Study_Conflict");
+//		System.out.println("Study_Conflict");
 
 		// 하위 -> 상위 O (하위에서 꺼내는거는 가능)
 		// 상위 -> 하위 X (상위에서 꺼내는거는 불가능)

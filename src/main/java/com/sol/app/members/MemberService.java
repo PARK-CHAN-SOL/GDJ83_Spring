@@ -1,7 +1,6 @@
 package com.sol.app.members;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -14,6 +13,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sol.app.accounts.AccountDAO;
+import com.sol.app.files.FileManager;
 
 @Service
 public class MemberService {
@@ -28,9 +28,7 @@ public class MemberService {
 	public int join(MemberDTO dto, MultipartFile files, HttpSession httpSession) throws Exception {
 		int result = memberDAO.join(dto);
 		
-		if (files == null) {
-			return result;
-		}
+		if(files.isEmpty()) return result;
 		
 		ServletContext servletContext =	httpSession.getServletContext();
 		//1. 어디에 저장? (운영체제가 알고 있는 경로에 써줘야한다)
@@ -39,39 +37,32 @@ public class MemberService {
 		
 		System.out.println(path);
 		
-		File file = new File(path);
 		
-		if(!file.exists()) {
-			file.mkdir();
-		};
-		
-		//2. 파일명을 뭐로 할거냐?
-		// 1) 시간을 이용하자
-		
-		Calendar calendar = Calendar.getInstance();
-		long t = calendar.getTimeInMillis();
-		String originalFilename = files.getOriginalFilename();
-//		String fileName = t + originalFilename.substring(originalFilename.lastIndexOf("."));
-//		String fileName = t + "_" + originalFilename;
-		
-		// 2) library를 사용하자 UUID
-		String fileName = UUID.randomUUID().toString() + "_" + originalFilename;
-		System.out.println(fileName);
-		
-		//3. 하드디스크에 파일을 저장하자
-		file = new File(file, fileName);
-		
-		// 1) library를 사용하자 ( MultipartFile )
-//		files.transferTo(file);
-//		FileWriter fw = new
-		
-		// 1-1) ( FileCopyUtils )
-		FileCopyUtils.copy(files.getBytes(), file);
-		
+		/*
+		 * //2. 파일명을 뭐로 할거냐? // 1) 시간을 이용하자
+		 * 
+		 * Calendar calendar = Calendar.getInstance(); long t =
+		 * calendar.getTimeInMillis(); String originalFilename =
+		 * files.getOriginalFilename(); // String fileName = t +
+		 * originalFilename.substring(originalFilename.lastIndexOf(".")); // String
+		 * fileName = t + "_" + originalFilename;
+		 * 
+		 * // 2) library를 사용하자 UUID String fileName = UUID.randomUUID().toString() + "_"
+		 * + originalFilename; System.out.println(fileName);
+		 * 
+		 * //3. 하드디스크에 파일을 저장하자 file = new File(file, fileName);
+		 * 
+		 * // 1) library를 사용하자 ( MultipartFile ) // files.transferTo(file); //
+		 * FileWriter fw = new
+		 * 
+		 * // 1-1) ( FileCopyUtils ) FileCopyUtils.copy(files.getBytes(), file);
+		 */
+		FileManager fm = new FileManager();
 		MemberFileDTO memberFileDTO = new MemberFileDTO();
+		
+		fm.fileSave(files, memberFileDTO, path);
+		
 		memberFileDTO.setMember_id(dto.getMember_id());
-		memberFileDTO.setFileName(fileName);
-		memberFileDTO.setOriName(originalFilename);
 		
 		memberDAO.addFile(memberFileDTO);
 		return result;

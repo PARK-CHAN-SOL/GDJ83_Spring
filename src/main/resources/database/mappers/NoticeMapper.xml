@@ -47,21 +47,53 @@
 		SET		BOARDTITLE = #{boardTitle}, BOARDCONTENTS = #{boardContents}
 		WHERE 	BOARDNUM = #{boardNum}
 	</update>
-	
+
 	<insert id="add" parameterType="NoticeDTO">
+		<selectKey order="BEFORE" resultType="java.lang.Long" keyProperty="boardNum">
+			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO NOTICE (
 			BOARDNUM, BOARDWRITER, BOARDTITLE
 		,	BOARDCONTENTS, BOARDCATEGORY
 		)
 		VALUES (
-			BOARD_SEQ.NEXTVAL, #{boardWriter}, #{boardTitle}
+			#{boardNum}, #{boardWriter}, #{boardTitle}
 		,	#{boardContents}, NULL
 		)
 	</insert>
 	
-	<select id="getDetail" parameterType="NoticeDTO" resultType="NoticeDTO">
-		SELECT * FROM NOTICE WHERE BOARDNUM=#{boardNum}
+	<insert id="addFile" parameterType="BoardFileDTO">
+		INSERT INTO NOTICEFILES
+		VALUES (FILE_SEQ.NEXTVAL, #{boardNum}, #{fileName}, #{oriName})
+	</insert>
+	
+	<select id="getDetail" parameterType="NoticeDTO" resultMap="detailResult">
+		SELECT	*
+		FROM	NOTICE n LEFT JOIN NOTICEFILES nf
+				ON n.BOARDNUM = nf.BOARDNUM
+		WHERE 	n.BOARDNUM = #{boardNum}
 	</select>
+	
+	<resultMap type="NoticeDTO" id="detailResult">
+		<id column="BOARDNUM" property="boardNum"/>
+		<result column="BOARDWRITER" property="boardWriter"/>
+		<result column="BOARDTITLE" property="boardTitle"/>
+		<result column="CREATEDATE" property="createDate"/>
+		<result column="UPDATEDATE" property="updateDate"/>
+		<result column="BOARDHIT" property="boardHit"/>
+		<result column="BOARDCONTENTS" property="boardContents"/>
+		<result column="REF" property="ref"/>
+		<result column="STEP" property="step"/>
+		<result column="DEPTH" property="depth"/>
+		<result column="BOARDCATEGORY" property="boardCategory"/>
+		<result column="DEL" property="del"/>
+		
+		<collection property="fileDTOs" javaType="java.util.List" ofType="BoardFileDTO">
+			<id column="FILENUM" property="fileNum"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="ORINAME" property="oriName"/>
+		</collection>
+	</resultMap>
 	
 	<delete id="delete" parameterType="NoticeDTO">
 		DELETE NOTICE WHERE BOARDNUM=#{boardNum}

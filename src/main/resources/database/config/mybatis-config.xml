@@ -18,5 +18,7 @@
  		<typeAlias type="com.sol.app.util.Pager" alias="Pager"/>
  		<typeAlias type="com.sol.app.files.FileDTO" alias="FileDTO"/>
  		<typeAlias type="com.sol.app.members.MemberFileDTO" alias="MemberFileDTO"/>
+ 		<typeAlias type="com.sol.app.product.ItemFileDTO" alias="ItemFileDTO"/>
+ 		<typeAlias type="com.sol.app.boards.BoardFileDTO" alias="BoardFileDTO"/>
  	</typeAliases>
  </configuration>

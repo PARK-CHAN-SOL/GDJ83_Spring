@@ -1,14 +1,15 @@
 package com.sol.app.product;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sol.app.util.Pager;
 
@@ -40,8 +41,8 @@ public class ItemController {
 	public void add() {	}
 	
 	@RequestMapping(value="add", method=RequestMethod.POST)
-	public String add(ItemDTO dto) throws Exception {
-		int num = itemService.add(dto);
+	public String add(ItemDTO dto, MultipartFile[] files, HttpSession httpSession) throws Exception {
+		int num = itemService.add(dto, files, httpSession);
 		return "redirect:./list";
 	}
 	

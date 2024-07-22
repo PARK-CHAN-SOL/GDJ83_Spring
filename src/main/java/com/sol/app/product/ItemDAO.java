@@ -26,8 +26,16 @@ public class ItemDAO {
 		return sqlSession.selectOne(NAMESPACE + "getDetail", dto);
 	}
 
+	public Long getNum() throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "getNum");
+	}
+	
 	public int add(ItemDTO dto) throws Exception {
 		return sqlSession.insert(NAMESPACE + "add", dto);
+	}
+	
+	public int addFile(ItemFileDTO dto) throws Exception {
+		return sqlSession.insert(NAMESPACE + "addFile", dto);
 	}
 
 	public int delete(ItemDTO dto) throws Exception {

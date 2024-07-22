@@ -11,13 +11,38 @@
 		SELECT * FROM ITEMS ORDER BY ITEM_ID DESC
 	</select> -->
 	
-	<select id="getDetail" resultType="ItemDTO" parameterType="ItemDTO">
-		SELECT * FROM ITEMS WHERE ITEM_ID = #{item_id}
+	<select id="getDetail" resultMap="detailMap" parameterType="ItemDTO">
+		SELECT	*
+		FROM	ITEMS i LEFT JOIN ITEMFILES f
+				ON i.ITEM_ID = f.ITEM_ID
+		WHERE 	i.ITEM_ID = #{item_id}
+	</select>
+	
+	<resultMap type="ItemDTO" id="detailMap">
+		<id column="ITEM_ID" property="item_id"/>
+		<result column="ITEM_NAME" property="item_name"/>
+		<result column="ITEM_DETAIL" property="item_detail"/>
+		<result column="ITEM_RATE" property="item_rate"/>
+		
+		<collection property="fileDTOs" javaType="java.util.List" ofType="ItemFileDTO">
+			<id column="FILENUM" property="fileNum"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="ORINAME" property="oriName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getNum" resultType="java.lang.Long">
+		SELECT ITEMS_SEQ.NEXTVAL FROM DUAL
 	</select>
 	
 	<insert id="add" parameterType="ItemDTO">
 		INSERT INTO ITEMS
-		VALUES(ITEMS_SEQ.NEXTVAL, #{item_name} ,#{item_detail} ,#{item_rate})
+		VALUES(#{item_id}, #{item_name} ,#{item_detail} ,#{item_rate})
+	</insert>
+	
+	<insert id="addFile" parameterType="ItemFileDTO">
+		INSERT INTO ITEMFILES
+		VALUES (FILE_SEQ.NEXTVAL, #{item_id}, #{fileName}, #{oriName})
 	</insert>
 	
 	<delete id="delete" parameterType="ItemDTO">

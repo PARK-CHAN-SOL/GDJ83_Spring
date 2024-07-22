@@ -10,6 +10,15 @@ public class ItemDTO {
 	private String item_detail;
 	private Double item_rate;
 	private List<AccountDTO> dtos;
+	private List<ItemFileDTO> fileDTOs;
+
+	public List<ItemFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+
+	public void setFileDTOs(List<ItemFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
+	}
 
 	public List<AccountDTO> getDtos() {
 		return dtos;

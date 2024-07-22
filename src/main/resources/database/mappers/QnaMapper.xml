@@ -43,24 +43,37 @@
 		<include refid="searchSql"/>
 	</select>
 	
+	<select id="getNum" resultType="java.lang.Long">
+		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
 	<insert id="add" parameterType="QnaDTO">
+		
 		INSERT INTO QNA (
 			BOARDNUM, BOARDWRITER, BOARDTITLE, BOARDCONTENTS
 			, BOARDCATEGORY, REF, STEP, DEPTH
 		)
 		VALUES (
-			BOARD_SEQ.NEXTVAL, #{boardWriter}, #{boardTitle}, #{boardContents}
-			, 'Q', BOARD_SEQ.CURRVAL, 0 , 0
+			#{boardNum}, #{boardWriter}, #{boardTitle}, #{boardContents}
+			, 'Q', #{boardNum}, 0 , 0
 		)
 	</insert>
 	
+	<insert id="addFile" parameterType="BoardFileDTO">
+		INSERT INTO QNAFILES
+		VALUES (FILE_SEQ.NEXTVAL, #{boardNum}, #{fileName}, #{oriName})
+	</insert>
+	
 	<insert id="reply" parameterType="QnaDTO">
+		<selectKey order="BEFORE" resultType="java.lang.Long" keyProperty="boardNum">
+			SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO QNA (
 		BOARDNUM, BOARDWRITER, BOARDTITLE, BOARDCONTENTS
 		, BOARDCATEGORY, REF, STEP, DEPTH
 		)
 		VALUES (
-			BOARD_SEQ.NEXTVAL, #{boardWriter}, #{boardTitle}, #{boardContents}
+			#{boardNum}, #{boardWriter}, #{boardTitle}, #{boardContents}
 			, 'Q', #{ref}, #{step} , #{depth}
 		)
 	</insert>
@@ -72,9 +85,33 @@
 				AND STEP > #{step}
 	</update>
 	
-	<select id="getDetail" parameterType="QnaDTO" resultType="QnaDTO">
-		SELECT * FROM QNA WHERE BOARDNUM = #{boardNum} AND DEL = 0
+	<select id="getDetail" parameterType="QnaDTO" resultMap="detailResult">
+		SELECT	*
+		FROM	QNA q LEFT JOIN QNAFILES qf
+				ON q.BOARDNUM = qf.BOARDNUM
+		WHERE 	q.BOARDNUM = #{boardNum} AND q.DEL = 0
 	</select>
+	
+	<resultMap type="QnaDTO" id="detailResult">
+		<id column="BOARDNUM" property="boardNum"/>
+		<result column="BOARDWRITER" property="boardWriter"/>
+		<result column="BOARDTITLE" property="boardTitle"/>
+		<result column="CREATEDATE" property="createDate"/>
+		<result column="UPDATEDATE" property="updateDate"/>
+		<result column="BOARDHIT" property="boardHit"/>
+		<result column="BOARDCONTENTS" property="boardContents"/>
+		<result column="REF" property="ref"/>
+		<result column="STEP" property="step"/>
+		<result column="DEPTH" property="depth"/>
+		<result column="BOARDCATEGORY" property="boardCategory"/>
+		<result column="DEL" property="del"/>
+		
+		<collection property="fileDTOs" javaType="java.util.List" ofType="BoardFileDTO">
+			<id column="FILENUM" property="fileNum"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="ORINAME" property="oriName"/>
+		</collection>
+	</resultMap>
 	
 	<update id="update" parameterType="QnaDTO">
 		UPDATE	QNA

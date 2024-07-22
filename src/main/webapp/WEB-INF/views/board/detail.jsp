@@ -34,7 +34,15 @@
 									</tr>
 									<tr>
 										<th>내용</th>
-										<td colspan="3">${dto.boardContents}</td>	
+										<td colspan="3">${dto.boardContents}
+                                          <ol>
+                                              <c:forEach items="${dto.fileDTOs}" var="f">
+                                                <li>
+                                                  <a href="/resources/upload/${board}/${f.fileName}">${f.oriName}</a>
+                                                </li>
+                                              </c:forEach>                                            
+                                          </ol>
+                                        </td>	
 									</tr>
 								</tbody>
 							</table>

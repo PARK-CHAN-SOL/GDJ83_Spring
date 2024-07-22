@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sol.app.boards.BoardDTO;
 import com.sol.app.boards.BoardService;
@@ -74,10 +75,10 @@ public class NoticeController {
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String add(Pager pager, NoticeDTO noticeDTO, HttpSession httpSession) throws Exception {
+	public String add(NoticeDTO noticeDTO, MultipartFile[] files, HttpSession httpSession) throws Exception {
 		MemberDTO memberDTO = (MemberDTO) httpSession.getAttribute("member");
 		noticeDTO.setBoardWriter(memberDTO.getMember_id());
-		int num = boardService.add(noticeDTO);
+		int num = boardService.add(files, noticeDTO, httpSession);
 		return "redirect:list";
 	}
 

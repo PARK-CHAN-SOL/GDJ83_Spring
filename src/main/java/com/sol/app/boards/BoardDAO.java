@@ -14,8 +14,12 @@ public interface BoardDAO {
 
 	int update(BoardDTO boardDTO) throws Exception;
 
+	Long getNum() throws Exception;
+	
 	int add(BoardDTO boardDTO) throws Exception;
 
+	int addFile(BoardFileDTO boardFileDTO) throws Exception;
+	
 	int delete(BoardDTO boardDTO) throws Exception;
 
 	Long countList(Pager pager) throws Exception;

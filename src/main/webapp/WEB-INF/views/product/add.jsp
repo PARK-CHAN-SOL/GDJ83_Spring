@@ -16,7 +16,7 @@
 		</div>
 		<div class="container-fluid mt-5">
 		<div class="row">
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 				<input type="hidden" value="${dto.boardNum}" name="boardNum">
 				<div class="mb-3">
 				<table class="table table-striped">

@@ -1,6 +1,7 @@
 package com.sol.app.boards;
 
 import java.sql.Date;
+import java.util.List;
 
 public class BoardDTO {
 	private Long boardNum;
@@ -12,7 +13,14 @@ public class BoardDTO {
 	private String boardContents;
 	private Character boardCategory;
 	private Integer del;
+	private List<BoardFileDTO> fileDTOs;
 
+	public List<BoardFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+	public void setFileDTOs(List<BoardFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
+	}
 	public Integer getDel() {
 		if(this.del == null) this.del = 0;
 		return del;

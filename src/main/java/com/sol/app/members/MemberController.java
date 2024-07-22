@@ -104,7 +104,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String delete(Model model, HttpSession httpSession) throws Exception {
 		MemberDTO dto = (MemberDTO) httpSession.getAttribute("member");
 		int num = memberService.delete(dto);
