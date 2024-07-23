@@ -1,11 +1,13 @@
 package com.sol.app.product;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sol.app.members.MemberDTO;
 import com.sol.app.util.Pager;
 
 @Repository
@@ -15,6 +17,14 @@ public class ItemDAO {
 	private SqlSession sqlSession;
 
 	private final String NAMESPACE = "com.sol.app.product.ItemDAO.";
+	
+	public List<ItemDTO> wishList(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "wishList", map);
+	}
+	
+	public int addWish(Map<String, Object> map) throws Exception {
+		return sqlSession.insert(NAMESPACE + "addWish", map);
+	}
 
 	public List<ItemDTO> getList(Pager pager) throws Exception {
 		Long result = sqlSession.selectOne(NAMESPACE + "countSearch", pager);
@@ -48,5 +58,9 @@ public class ItemDAO {
 
 	public long countList(Pager pager) {
 		return sqlSession.selectOne(NAMESPACE + "countList", pager);
+	}
+	
+	public long countWishList(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE + "countWishList", memberDTO);
 	}
 }

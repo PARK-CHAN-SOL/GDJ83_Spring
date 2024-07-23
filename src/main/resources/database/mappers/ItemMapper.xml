@@ -10,6 +10,32 @@
 	<!-- <select id="getList" resultType="ItemDTO">
 		SELECT * FROM ITEMS ORDER BY ITEM_ID DESC
 	</select> -->
+	<insert id="addWish" parameterType="Map">
+		INSERT INTO WISHLIST
+		VALUES (#{item_id}, #{member_id})
+	</insert>
+	
+	<select id="countWishList" parameterType="MemberDTO" resultType="java.lang.Long">
+		SELECT	COUNT(ITEM_ID)
+		FROM	WISHLIST
+		WHERE	MEMBER_ID = #{member_id}
+	</select>
+	
+	<select id="wishList" parameterType="Map" resultType="ItemDTO">
+		SELECT * FROM 
+		(	SELECT 		ROWNUM r, i.*
+			FROM	(	SELECT 		*
+						FROM 		ITEMS
+						<where>		
+									ITEM_ID > 0	AND ITEM_ID IN(
+										SELECT	ITEM_ID
+										FROM	WISHLIST
+										WHERE  	MEMBER_ID = #{memberDTO.member_id}
+									)
+						</where>
+						ORDER BY	ITEM_ID DESC	) i)
+		WHERE	r BETWEEN #{pager.startRow} AND #{pager.lastRow}
+	</select>
 	
 	<select id="getDetail" resultMap="detailMap" parameterType="ItemDTO">
 		SELECT	*
@@ -24,7 +50,7 @@
 		<result column="ITEM_DETAIL" property="item_detail"/>
 		<result column="ITEM_RATE" property="item_rate"/>
 		
-		<collection property="fileDTOs" javaType="java.util.List" ofType="ItemFileDTO">
+		<collection property="fileDTOs" javaType="List" ofType="ItemFileDTO">
 			<id column="FILENUM" property="fileNum"/>
 			<result column="FILENAME" property="fileName"/>
 			<result column="ORINAME" property="oriName"/>

@@ -31,14 +31,19 @@
         </div>
 
         <div class="d-md-flex justify-content-md-end mt-5">
-          <a class="btn btn-secondary justify-content-end" href="./list" role="button">돌아가기</a>
+          <input type="button" class="btn btn-secondary" value="돌아가기" onclick="history.back();">
+          <button id="addWish" class="btn btn-secondary justify-content-end" data-item-id="${dto.item_id}">찜</button>
         </div>
       </div>
     </div>
+  </div>
+  <div id="wishResult">
+    
   </div>
   <footer class="fixed-bottom">
     <c:import url="../template/footer.jsp"></c:import>
   </footer>
   <c:import url="../template/footerJS.jsp"></c:import>
+  <script src="/resources/js/product/wish.js"></script>
 </body>
 </html>

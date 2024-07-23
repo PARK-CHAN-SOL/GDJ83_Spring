@@ -7,10 +7,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sol.app.members.MemberDTO;
 import com.sol.app.util.Pager;
 
 @Controller
@@ -18,6 +21,19 @@ import com.sol.app.util.Pager;
 public class ItemController {
 	@Autowired
 	private ItemService itemService;
+	
+	@ModelAttribute
+	public String getBoard() {
+		return "Product";
+	}
+	
+	@GetMapping("wishList")
+	public void wishList(HttpSession session, Model model, Pager pager) throws Exception {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		List<ItemDTO> wishList = itemService.wishList(memberDTO, pager);
+		model.addAttribute("wishList", wishList);
+		model.addAttribute("pager", pager);
+	}
 	
 	@RequestMapping("list")
 	public String getList(Model model, Pager pager) throws Exception {
@@ -29,6 +45,14 @@ public class ItemController {
 		}
 		model.addAttribute("list", list);
 		return "/product/list";
+	}
+	
+	@GetMapping("addWish")
+	public String addWish(Long item_id, HttpSession session, Model model) throws Exception {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		int result = itemService.addWish(item_id, memberDTO.getMember_id());
+		model.addAttribute("msg", result);
+		return "commons/result";
 	}
 	
 	@RequestMapping("detail")

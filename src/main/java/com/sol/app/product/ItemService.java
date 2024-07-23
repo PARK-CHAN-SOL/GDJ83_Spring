@@ -1,7 +1,8 @@
 package com.sol.app.product;
 
-import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sol.app.files.FileManager;
+import com.sol.app.members.MemberDTO;
 import com.sol.app.util.Pager;
 
 @Service
@@ -21,6 +23,22 @@ public class ItemService {
 	
 	@Autowired
 	private FileManager fm;
+	
+	public List<ItemDTO> wishList(MemberDTO memberDTO, Pager pager) throws Exception{
+		pager.makeRow();
+		pager.makeNum(itemDAO.countWishList(memberDTO));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberDTO", memberDTO);
+		map.put("pager", pager);
+		return itemDAO.wishList(map);
+	}
+	
+	public int addWish(Long item_id, String member_id) throws Exception {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("item_id", item_id);
+		map.put("member_id", member_id);
+		return itemDAO.addWish(map);
+	}
 
 	public List<ItemDTO> getList(Pager pager) throws Exception {
 		
