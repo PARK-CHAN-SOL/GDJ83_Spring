@@ -2,6 +2,7 @@ package com.sol.app.boards;
 
 import java.util.List;
 
+import com.sol.app.files.FileDTO;
 import com.sol.app.util.Pager;
 
 public interface BoardDAO {
@@ -24,4 +25,5 @@ public interface BoardDAO {
 
 	Long countList(Pager pager) throws Exception;
 
+	FileDTO fileDetail(FileDTO fileDTO) throws Exception;
 }

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sol.app.boards.BoardDTO;
+import com.sol.app.files.FileDTO;
 import com.sol.app.members.MemberDTO;
 import com.sol.app.util.Pager;
 
@@ -96,5 +97,14 @@ public class QnaController {
 	public String delete(QnaDTO qnaDTO) throws Exception {
 		int result = qnaService.delete(qnaDTO);
 		return "redirect:./list";
+	}
+	
+//	매개변수의 앞에는 ModelAttribute annotation이 생략되어있다
+//	key값을 설정하지 않으면, 변수의 이름이 key의 값이 된다 
+	@GetMapping("fileDown")
+	public String fileDown(@ModelAttribute FileDTO fileDTO, Model model) throws Exception {
+		fileDTO = qnaService.fileDetail(fileDTO);
+		model.addAttribute("file", fileDTO);
+		return "fileDown";
 	}
 }

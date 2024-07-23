@@ -124,4 +124,10 @@
 		SET		DEL = 1
 		WHERE	BOARDNUM = #{boardNum}
 	</delete>
+	
+	<select id="fileDetail" parameterType="FileDTO" resultType="FileDTO">
+		SELECT	FILENAME, ORINAME
+		FROM	QNAFILES
+		WHERE	FILENUM = #{fileNum}
+	</select>
 </mapper>

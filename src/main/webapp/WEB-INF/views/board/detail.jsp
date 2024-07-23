@@ -38,7 +38,7 @@
                                           <ol>
                                               <c:forEach items="${dto.fileDTOs}" var="f">
                                                 <li>
-                                                  <a href="/resources/upload/${board}/${f.fileName}">${f.oriName}</a>
+                                                  <a href="./fileDown?fileNum=${f.fileNum}">${f.oriName}</a>
                                                 </li>
                                               </c:forEach>                                            
                                           </ol>

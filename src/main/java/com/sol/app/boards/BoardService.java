@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sol.app.files.FileDTO;
 import com.sol.app.util.Pager;
 
 public interface BoardService {
@@ -20,4 +21,7 @@ public interface BoardService {
 	public int add(MultipartFile[] files, BoardDTO boardDTO, HttpSession httpSession) throws Exception;
 
 	public int delete(BoardDTO boardDTO) throws Exception;
+	
+	FileDTO fileDetail(FileDTO fileDTO) throws Exception;
+
 }

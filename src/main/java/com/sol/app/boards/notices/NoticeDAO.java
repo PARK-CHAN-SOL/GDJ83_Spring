@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.sol.app.boards.BoardDAO;
 import com.sol.app.boards.BoardDTO;
 import com.sol.app.boards.BoardFileDTO;
+import com.sol.app.files.FileDTO;
 import com.sol.app.util.Pager;
 
 @Repository
@@ -59,5 +60,10 @@ public class NoticeDAO implements BoardDAO{
 	
 	public Long countList (Pager pager) {
 		return sqlSession.selectOne(NAMESPACE + "countList", pager);
+	}
+	
+	@Override
+	public FileDTO fileDetail(FileDTO fileDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "fileDetail", fileDTO);
 	}
 }

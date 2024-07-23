@@ -14,6 +14,7 @@ import com.sol.app.boards.BoardDAO;
 import com.sol.app.boards.BoardDTO;
 import com.sol.app.boards.BoardFileDTO;
 import com.sol.app.boards.BoardService;
+import com.sol.app.files.FileDTO;
 import com.sol.app.files.FileManager;
 import com.sol.app.util.Pager;
 
@@ -74,5 +75,10 @@ public class NoticeService implements BoardService {
 
 	public int delete(BoardDTO boardDTO) throws Exception {
 		return boardDAO.delete(boardDTO);
+	}
+	
+	@Override
+	public FileDTO fileDetail(FileDTO fileDTO) throws Exception {
+		return boardDAO.fileDetail(fileDTO);
 	}
 }
