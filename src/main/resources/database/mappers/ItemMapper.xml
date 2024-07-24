@@ -37,6 +37,15 @@
 		WHERE	r BETWEEN #{pager.startRow} AND #{pager.lastRow}
 	</select>
 	
+	<delete id="deleteWishList" parameterType="Map">
+		DELETE 	WISHLIST
+		WHERE	MEMBER_ID = #{member_id}
+				AND ITEM_ID IN
+		<foreach collection="item_ids" item="item_id" open="(" close=")" separator=",">
+			#{item_id}
+		</foreach>
+	</delete>
+	
 	<select id="getDetail" resultMap="detailMap" parameterType="ItemDTO">
 		SELECT	*
 		FROM	ITEMS i LEFT JOIN ITEMFILES f

@@ -12,7 +12,7 @@
   <div class="d-flex mt-5">
     <div class="container-fluid col-6 justify-contents-center mt-5">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
-        <a class="btn btn-secondary" href="./update?id=seon" role="button">수정</a> <a class="btn btn-danger" href="./delete?id=${member.member_id}" role="button">탈퇴</a>
+        <a class="btn btn-secondary" href="/product/wishList" role="button">위시리스트</a><a class="btn btn-secondary" href="./update?id=seon" role="button">수정</a> <a class="btn btn-danger" href="./delete?id=${member.member_id}" role="button">탈퇴</a>
       </div>
 
       <table class="table mt-4">

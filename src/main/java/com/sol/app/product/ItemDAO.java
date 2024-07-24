@@ -63,4 +63,8 @@ public class ItemDAO {
 	public long countWishList(MemberDTO memberDTO) {
 		return sqlSession.selectOne(NAMESPACE + "countWishList", memberDTO);
 	}
+	
+	public int deleteWishList (Map<String, Object> map) throws Exception{
+		return sqlSession.delete(NAMESPACE + "deleteWishList", map);
+	}
 }

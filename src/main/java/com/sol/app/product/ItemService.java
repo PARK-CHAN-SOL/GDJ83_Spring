@@ -33,6 +33,14 @@ public class ItemService {
 		return itemDAO.wishList(map);
 	}
 	
+	public int deleteWishList(Long[] item_id, MemberDTO memberDTO) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("item_ids", item_id);
+		map.put("member_id", memberDTO.getMember_id());
+
+		return itemDAO.deleteWishList(map);
+	}
+	
 	public int addWish(Long item_id, String member_id) throws Exception {
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("item_id", item_id);

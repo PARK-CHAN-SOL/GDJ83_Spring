@@ -27,6 +27,14 @@ public class ItemController {
 		return "Product";
 	}
 	
+	@GetMapping("deleteWishList")
+	public String deleteWishList(Long[] item_id, HttpSession session, Model model) throws Exception {
+//		System.out.println(itemDTO.getItem_id());
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		model.addAttribute("msg", itemService.deleteWishList(item_id, memberDTO));
+		return "/commons/result";
+	}
+	
 	@GetMapping("wishList")
 	public void wishList(HttpSession session, Model model, Pager pager) throws Exception {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");

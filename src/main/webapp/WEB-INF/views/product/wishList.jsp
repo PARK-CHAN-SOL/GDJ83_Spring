@@ -16,6 +16,8 @@
       </div>
       <div class="row gx-5 justify-content-center" id="itemDiv">
         <!-- Pricing card free-->
+        <button class="btn btn-outline-secondary mb-2" id="delAllBtn" style="width: auto; height: auto;">선택 삭제</button>
+        <input type="checkbox" id="delChkAll" class="mb-3">
         <c:forEach items="${wishList}" var="dto" varStatus="i">
           <div class="col-lg-6 col-xl-4">
             <div class="card mb-5 mb-xl-0">
