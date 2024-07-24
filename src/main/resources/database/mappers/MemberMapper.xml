@@ -5,6 +5,12 @@
   
   <mapper namespace="com.sol.app.members.MemberDAO">
   	
+  	<select id="idCheck" parameterType="MemberDTO" resultType="int">
+  		SELECT	COUNT(MEMBER_ID)
+  		FROM	MEMBERS
+  		WHERE	MEMBER_ID = #{member_id}
+  	</select>
+  	
   	<insert id="join" parameterType="MemberDTO">
   		INSERT INTO MEMBERS
   		VALUES	(	#{member_id}

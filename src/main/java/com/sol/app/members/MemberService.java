@@ -25,6 +25,10 @@ public class MemberService {
 	
 	private String name = "members";
 	
+	public int idCheck(MemberDTO memberDTO) throws Exception {
+		return memberDAO.idCheck(memberDTO);
+	}
+	
 	public int join(MemberDTO dto, MultipartFile files, HttpSession httpSession) throws Exception {
 		int result = memberDAO.join(dto);
 		

@@ -14,6 +14,10 @@ public class MemberDAO {
 
 	private final String NAMESPACE = "com.sol.app.members.MemberDAO.";
 
+	public int idCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "idCheck", memberDTO);
+	}
+	
 	public int join(MemberDTO dto) throws Exception {
 		return sqlSession.insert(NAMESPACE + "join", dto);
 	}

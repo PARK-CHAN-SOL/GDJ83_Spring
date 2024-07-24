@@ -50,6 +50,25 @@ btn.addEventListener("click", function() {
     }
 })
 
+memberId.addEventListener("change", function(){
+    console.log(memberId.value);
+    fetch("./idCheck?member_id="+memberId.value,{
+        method:"GET"
+    })
+    .then((res)=>{return res.text();})
+    .then((res)=>{
+        if(res == 0){
+            alert("사용가능한 ID 입니다");
+        } else {
+            alert("중복된 ID 입니다");
+        }
+    })
+    .catch((e)=>{
+        console.log(e);
+        alert("오류");
+    })
+});
+
 const passwordEqError = document.getElementById("password-eqError");
 pwCheck.addEventListener("blur", function() {
     passwordEqError.innerHTML="";
@@ -61,6 +80,6 @@ pwCheck.addEventListener("blur", function() {
     } else {
         passwordEqError.innerHTML="correct";
         passwordEqError.style.color="green";
-        return
+        return;
     }
-})
+});

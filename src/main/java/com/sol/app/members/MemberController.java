@@ -1,8 +1,5 @@
 package com.sol.app.members;
 
-import java.util.Map;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +21,13 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	@GetMapping("idCheck")
+	public String idCheck(MemberDTO memberDTO, Model model) throws Exception {
+		int result = memberService.idCheck(memberDTO);
+		model.addAttribute("msg", result);
+		return "/commons/result";
+	}
+	
 	@RequestMapping(value = "join", method = RequestMethod.GET)
 	public void join() {
 
