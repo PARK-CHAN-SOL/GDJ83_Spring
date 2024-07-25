@@ -10,6 +10,39 @@
 	<!-- <select id="getList" resultType="ItemDTO">
 		SELECT * FROM ITEMS ORDER BY ITEM_ID DESC
 	</select> -->
+	
+	<delete id="commentDelete" parameterType="ItemCommentsDTO">
+		DELETE FROM COMMENTS
+		WHERE BOARDNUM = #{boardNum}
+	</delete>
+	
+	<select id="commentTotalCount" parameterType="ItemCommentsPager" resultType="java.lang.Long">
+		SELECT	COUNT(BOARDNUM)
+		FROM	COMMENTS
+		WHERE	ITEM_ID = #{item_id}
+	</select>
+	
+	<select id="commentList" parameterType="ItemCommentsPager" resultType="ItemCommentsDTO">
+		SELECT	*
+		FROM	
+		(
+			SELECT	ROWNUM r, c.*
+			FROM	
+			(
+				SELECT		*
+				FROM		COMMENTS
+				WHERE		ITEM_ID = #{item_id}
+				ORDER BY	BOARDNUM DESC
+			) c
+		)
+		WHERE r BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	
+	<insert id="commentAdd" parameterType="ItemCommentsDTO">
+		INSERT INTO COMMENTS (BOARDNUM, ITEM_ID, BOARDWRITER, BOARDCONTENTS)
+		VALUES (COMMENTS_SEQ.NEXTVAL, #{item_id}, #{boardWriter}, #{boardContents})
+	</insert>
+	
 	<insert id="addWish" parameterType="Map">
 		INSERT INTO WISHLIST
 		VALUES (#{item_id}, #{member_id})

@@ -18,6 +18,22 @@ public class ItemDAO {
 
 	private final String NAMESPACE = "com.sol.app.product.ItemDAO.";
 	
+	public int commentDelete(ItemCommentsDTO dto) throws Exception {
+		return sqlSession.delete(NAMESPACE + "commentDelete", dto);
+	}
+	
+	public Long commentTotalCount (ItemCommentsPager pager) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "commentTotalCount", pager);
+	}
+	
+	public List<ItemCommentsDTO> commentList(ItemCommentsPager pager)throws Exception{
+		return sqlSession.selectList(NAMESPACE + "commentList", pager);
+	}
+	
+	public int commentAdd(ItemCommentsDTO dto) throws Exception {
+		return sqlSession.insert(NAMESPACE + "commentAdd", dto);
+	}
+	
 	public List<ItemDTO> wishList(Map<String, Object> map) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "wishList", map);
 	}

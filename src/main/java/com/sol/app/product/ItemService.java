@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sol.app.files.FileManager;
@@ -23,6 +25,23 @@ public class ItemService {
 	
 	@Autowired
 	private FileManager fm;
+	
+	public int commentDelete(ItemCommentsDTO dto) throws Exception {
+		return itemDAO.commentDelete(dto);
+	}
+	
+	public List<ItemCommentsDTO> commentList(ItemCommentsPager pager)throws Exception{
+		pager.makeRow();
+		pager.makeNum(itemDAO.commentTotalCount(pager));
+		return itemDAO.commentList(pager);
+	}
+	
+	public int commentAdd(ItemCommentsDTO dto) throws Exception {
+		if(dto.getBoardContents() == null || dto.getBoardContents().trim().equals("")) return 0;
+		dto.setBoardContents(dto.getBoardContents().replace("<", "&lt;"));
+		dto.setBoardContents(dto.getBoardContents().replace(">", "&gt;"));
+		return itemDAO.commentAdd(dto);
+	}
 	
 	public List<ItemDTO> wishList(MemberDTO memberDTO, Pager pager) throws Exception{
 		pager.makeRow();

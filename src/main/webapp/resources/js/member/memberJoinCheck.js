@@ -61,6 +61,7 @@ memberId.addEventListener("change", function(){
             alert("사용가능한 ID 입니다");
         } else {
             alert("중복된 ID 입니다");
+            memberId.value="";
         }
     })
     .catch((e)=>{

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,29 @@ public class ItemController {
 	@ModelAttribute
 	public String getBoard() {
 		return "Product";
+	}
+	
+	@PostMapping("commentDelete")
+	public String commentDelete(ItemCommentsDTO dto, Model model)throws Exception {
+		int result = itemService.commentDelete(dto);
+		model.addAttribute("msg", result);
+		return "/commons/result";
+	}
+	
+	@GetMapping("commentList")
+	public void commentList(ItemCommentsPager pager, Model model)throws Exception{
+		List<ItemCommentsDTO> list = itemService.commentList(pager);
+		model.addAttribute("list", list);
+		model.addAttribute("pager", pager);
+	}
+	
+	@PostMapping("commentAdd")
+	public String commentAdd(ItemCommentsDTO dto, HttpSession session, Model model) throws Exception {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		dto.setBoardWriter(memberDTO.getMember_id());
+		int result = itemService.commentAdd(dto); 
+		model.addAttribute("msg", result);
+		return "/commons/result";
 	}
 	
 	@GetMapping("deleteWishList")

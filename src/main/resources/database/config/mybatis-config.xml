@@ -20,5 +20,7 @@
  		<typeAlias type="com.sol.app.members.MemberFileDTO" alias="MemberFileDTO"/>
  		<typeAlias type="com.sol.app.product.ItemFileDTO" alias="ItemFileDTO"/>
  		<typeAlias type="com.sol.app.boards.BoardFileDTO" alias="BoardFileDTO"/>
+ 		<typeAlias type="com.sol.app.product.ItemCommentsDTO" alias="ItemCommentsDTO"/>
+ 		<typeAlias type="com.sol.app.product.ItemCommentsPager" alias="ItemCommentsPager"/>
  	</typeAliases>
  </configuration>
