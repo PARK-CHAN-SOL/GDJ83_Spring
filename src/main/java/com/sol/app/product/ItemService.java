@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sol.app.files.FileManager;
@@ -25,6 +26,10 @@ public class ItemService {
 	
 	@Autowired
 	private FileManager fm;
+	
+	public int commentUpdate(ItemCommentsDTO dto) throws Exception {
+		return itemDAO.commentUpdate(dto);
+	}
 	
 	public int commentDelete(ItemCommentsDTO dto) throws Exception {
 		return itemDAO.commentDelete(dto);

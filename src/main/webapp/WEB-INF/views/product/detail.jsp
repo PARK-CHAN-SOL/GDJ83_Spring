@@ -13,7 +13,7 @@
       <c:import url="../template/navbar.jsp"></c:import>
       <div class="container px-5 my-5">
         <div class="row gx-5 justify-content-center">
-          <div class="col-lg-8 col-xl-6">
+          <div class="col-lg-9 col-xl-8">
             <div class="card mb-5 mb-xl-0">
               <div class="card-body p-5">
                 <div class="small text-uppercase fw-bold text-muted" id="item_id">${dto.item_id}</div>
@@ -50,7 +50,7 @@
                           </div>
                           <div class="modal-body">
                             <div class="form-floating">
-                              <textarea class="form-control" placeholder="Leave a comment here" id="commentContents" style="height: 100px"></textarea>
+                              <textarea class="form-control" placeholder="Leave a comment here" id="commentContents" data-is-update="false" style="height: 100px"></textarea>
                             </div>
                             
                           </div>

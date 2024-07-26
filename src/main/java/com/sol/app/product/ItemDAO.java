@@ -18,6 +18,10 @@ public class ItemDAO {
 
 	private final String NAMESPACE = "com.sol.app.product.ItemDAO.";
 	
+	public int commentUpdate(ItemCommentsDTO dto) throws Exception {
+		return sqlSession.update(NAMESPACE + "commentUpdate", dto);
+	}
+	
 	public int commentDelete(ItemCommentsDTO dto) throws Exception {
 		return sqlSession.delete(NAMESPACE + "commentDelete", dto);
 	}

@@ -11,6 +11,12 @@
 		SELECT * FROM ITEMS ORDER BY ITEM_ID DESC
 	</select> -->
 	
+	<update id="commentUpdate" parameterType="ItemCommentsDTO">
+		UPDATE	COMMENTS
+		SET		BOARDCONTENTS = #{boardContents}
+		WHERE	BOARDNUM = #{boardNum}
+	</update>
+	
 	<delete id="commentDelete" parameterType="ItemCommentsDTO">
 		DELETE FROM COMMENTS
 		WHERE BOARDNUM = #{boardNum}

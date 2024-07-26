@@ -28,6 +28,13 @@ public class ItemController {
 		return "Product";
 	}
 	
+	@PostMapping("commentUpdate")
+	public String commentUpdate(ItemCommentsDTO dto, Model model) throws Exception {
+		int result = itemService.commentUpdate(dto); 
+		model.addAttribute("msg", result);
+		return "/commons/result";
+	}
+	
 	@PostMapping("commentDelete")
 	public String commentDelete(ItemCommentsDTO dto, Model model)throws Exception {
 		int result = itemService.commentDelete(dto);

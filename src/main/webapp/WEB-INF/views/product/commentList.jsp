@@ -6,18 +6,19 @@
       <table class="table table-borderless" style="width: 100%; height: auto;">
         <tbody class="border">
           <tr>
-            <td style="word-break: break-all">작성자: ${dto.boardWriter}</td>
+            <td style="word-break: break-all; width: 230px;">작성자: ${dto.boardWriter}</td>
             <td>작성일: ${dto.createDate}</td>
-            <td style="width:55px;">
+            <td style="width:120px;">
               <c:if test="${member ne null}">
                 <c:if test="${dto.boardWriter eq member.member_id }">
                   <button class="btn btn-outline-secondary" data-board-num="${dto.boardNum}">X</button>
+                  <button class="btn btn-outline-secondary" data-board-num="${dto.boardNum}" data-bs-toggle="modal" data-bs-target="#commentModal">수정</button>
                 </c:if>
               </c:if>
             </td>
           </tr>
-          <tr class="border mb-2">
-            <td colspan="3" style="word-break: break-all">${dto.boardContents}</td>
+          <tr class="border mb-2 boardContents">
+            <td colspan="3" style="word-break: break-all" class="boardContents">${dto.boardContents}</td>
           </tr>
         </tbody>
       </table>
